@@ -3,8 +3,39 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { prod } from "../features/product/productSlice";
+import "../index.css";
 
-function ProductDetail() {
+const DetailSkeleton = () => {
+  return (
+    <div
+      role="status"
+      className="space-y-8 animate-pulse  md:space-y-0 md:space-x-8 md:flex md:items-center"
+    >
+      <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+        <svg
+          className="w-12 h-12 text-gray-200"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 640 512"
+        >
+          <path d="M480 80C480 35.82 515.8 0 560 0C604.2 0 640 35.82 640 80C640 124.2 604.2 160 560 160C515.8 160 480 124.2 480 80zM0 456.1C0 445.6 2.964 435.3 8.551 426.4L225.3 81.01C231.9 70.42 243.5 64 256 64C268.5 64 280.1 70.42 286.8 81.01L412.7 281.7L460.9 202.7C464.1 196.1 472.2 192 480 192C487.8 192 495 196.1 499.1 202.7L631.1 419.1C636.9 428.6 640 439.7 640 450.9C640 484.6 612.6 512 578.9 512H55.91C25.03 512 .0006 486.1 .0006 456.1L0 456.1z"></path>
+        </svg>
+      </div>
+      <div className="w-full">
+        <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+      </div>
+      <span className="sr-only">Loading...</span>
+    </div>
+  );
+};
+
+export const ProductDetail = () => {
   const [details, setDetails] = useState<prod>({} as prod);
   const [loading, setLoading] = useState<boolean>(false);
   const params = useParams<string>();
@@ -25,41 +56,59 @@ function ProductDetail() {
     fetchDetails();
   }, []);
   return (
-    <section className="text-gray-700 body-font overflow-hidden bg-gray-100 border-gray-400 rounded-md border w-fit">
-      <div className="container py-10 mx-auto">
+    <div className="min-w-screen min-h-screen bg-gray-300">
+      <div className=" container h-screen w-screen flex items-center justify-center">
         {loading ? (
-          <h1>Loading Data</h1>
+          <DetailSkeleton />
         ) : (
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <img
-              alt={details.name}
-              className="lg:w-1/3 w-1/2 object-cover object-center border rounded-md border-gray-200"
-              src={details.avatar}
-            />
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h1 className="text-gray-900 text-2xl title-font font-medium mb-1">
-                {details.name}
-              </h1>
-              <p className="leading-relaxed">{details.description}</p>
-              <h3 className="title-font font-medium text-xl text-gray-900 mt-5">
-                Developer Email:{" "}
-                <span className="text-gray-700">{details.developerEmail}</span>
-              </h3>
-              <div className="flex mt-12 justify-between">
-                <span className="title-font font-medium text-xl text-gray-900">
-                  Category :
-                  <span className="text-gray-700">{details.category}</span>
-                </span>
-                <span className="title-font font-medium text-2xl text-gray-900">
-                  Rs. <span className="text-gray-700">{details.price}</span>
-                </span>
+          <div className="relative px-4 py-8 mx-auto w-full md:w-3/4 md:h-5/6 border bg-slate-100 shadow-2xl rounded-xl">
+            <div className=" w-full flex flex-col md:flex-row">
+              <div className="aspect-w-1 aspect-h-1 md:w-lg flex justify-center items-center">
+                <img
+                  alt={details.name}
+                  className=" aspect-square inset-0  object-cover rounded-xl"
+                  src={details.avatar}
+                />
+              </div>
+
+              <div className="sticky top-0 w-full md:w-1/2 pl-5">
+                <div className="flex flex-col mt-8">
+                  <div className="max-w-full">
+                    <h1 className="text-3xl font-semibold text-gray-900">
+                      {details.name}
+                    </h1>
+                  </div>
+                  <span className="text-3xl text-black font-bold mt-4">
+                    ${details.price}
+                  </span>
+                  <span className="text-lg text-gray-700 font-medium mt-4 pr-16">
+                    <span className=" text-base text-gray-600">
+                      Category :{" "}
+                    </span>
+                    {details.category}
+                  </span>
+                  <span className="text-lg text-gray-700 font-medium mt-1 pr-16">
+                    <span className=" text-base text-gray-600">
+                      Developer's Email :{" "}
+                    </span>
+                    {details.developerEmail}
+                  </span>
+                </div>
+                <div>
+                  <h3 className=" text-base text-gray-600 font-medium mt-4">
+                    Product description:
+                  </h3>
+                  <p className=" text-sm text-gray-700 font-semibold md:text-clip md:overflow-hidden">
+                    {details.description}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
-}
+};
 
 export default ProductDetail;

@@ -6,5 +6,8 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  variants: {
+    lineClamp: ['responsive']
+  },
+  plugins: [require('@tailwindcss/line-clamp'),],
 }
