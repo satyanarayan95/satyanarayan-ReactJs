@@ -26,9 +26,8 @@ const validationSchema = Yup.object({
 
 function AddProduct2() {
   const navigate = useNavigate();
-  const AUTH_BEARER =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhdHlhbmFyYXlhbi5wYXRyYTU0OTVAZ21haWwuY29tIiwiZ2l0aHViIjoiaHR0cHM6Ly9naXRodWIuY29tL3NhdHlhbmFyYXlhbjk1IiwiaWF0IjoxNjYyOTAxNjc2LCJleHAiOjE2NjMzMzM2NzZ9.A1r2qm2zFI1196yR9nb9NTHnUtptgfppOIBe-EbxlFk";
-  const BASE_URL = `https://upayments-studycase-api.herokuapp.com/api/products`;
+  const baseUrl: string = process.env.REACT_APP_BASE_URL as string;
+  const token: string = process.env.REACT_APP_AUTH_BEARER as string;
 
   const initialValues: data = {
     name: "",
@@ -42,8 +41,8 @@ function AddProduct2() {
   const onSubmit = async (values: data) => {
     cogoToast.loading("saving data", { position: "top-right" });
     try {
-      const res = await axios.post(BASE_URL, values, {
-        headers: { Authorization: `Bearer ${AUTH_BEARER}` },
+      const res = await axios.post(`${baseUrl}/api/products`, values, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       cogoToast
         .success("saved successfully", { position: "top-right" })

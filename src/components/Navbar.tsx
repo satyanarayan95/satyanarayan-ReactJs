@@ -7,12 +7,12 @@ type navProps = {
 function Navbar({ updateFilter, filter }: navProps) {
   const navigate = useNavigate();
   return (
-    <nav className=" z-50 fixed top-0 h-16 w-full flex flex-wrap items-center justify-between  bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg">
-      <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
-        <h1 className="sm:text-3xl text-center text-2xl font-medium title-font mb-4 text-gray-900">
-          Product Home Page
+    <nav className=" z-50 fixed top-0  md:h-16 w-full flex flex-wrap items-center justify-between bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg">
+      <div className="w-full flex flex-wrap items-center justify-between px-6">
+        <h1 className="md:text-3xl text-center text-xl font-medium title-font  text-gray-900">
+          Home Page
         </h1>
-        <div className="flex w-fit h-fit ">
+        <div className="flex w-fit h-fit py-2 md:pb-0">
           <div className="flex w-fit h-fit justify-center items-center">
             <label
               htmlFor="category"
@@ -38,13 +38,13 @@ function Navbar({ updateFilter, filter }: navProps) {
             </select>
           </div>
           <button
-            className=" px-4 rounded-md bg-slate-200 hover:bg-slate-700 hover:text-white text-gray-800 border-gray-300 text-lg border shadow-sm ring-offset-2 mx-2 "
+            className=" px-4 rounded-md bg-slate-200 hover:bg-slate-700 hover:text-white text-gray-800 border-gray-300 md:text-lg  border shadow-sm ring-offset-2 mx-2 "
             onClick={() => {
               navigate(`/add`);
             }}
           >
             {" "}
-            Add Product
+            Add
           </button>
           <button
             className=" px-4 rounded-md bg-red-400 hover:bg-red-600 hover:text-yellow-white text-yellow-50 border-gray-300 text-lg border shadow-sm ring-offset-2 mx-2"
@@ -53,7 +53,7 @@ function Navbar({ updateFilter, filter }: navProps) {
             }}
           >
             {" "}
-            Show Favourites
+            Favourites
           </button>
         </div>
       </div>
