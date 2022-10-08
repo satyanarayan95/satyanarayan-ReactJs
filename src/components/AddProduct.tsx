@@ -41,7 +41,7 @@ function AddProduct2() {
   const onSubmit = async (values: data) => {
     cogoToast.loading("saving data", { position: "top-right" });
     try {
-      const res = await axios.post(`${baseUrl}/api/products`, values, {
+      await axios.post(`${baseUrl}/api/products`, values, {
         headers: { Authorization: `Bearer ${token}` },
       });
       cogoToast
